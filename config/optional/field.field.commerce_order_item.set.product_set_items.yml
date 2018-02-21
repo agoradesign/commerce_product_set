@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_item_type.set
+    - field.storage.commerce_order_item.product_set_items
+  module:
+    - commerce_product_set
+id: commerce_order_item.set.product_set_items
+field_name: product_set_items
+entity_type: commerce_order_item
+bundle: set
+label: 'Product set items'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: null
+settings:
+  available_currencies: {  }
+field_type: commerce_product_set_item

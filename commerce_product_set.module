@@ -1,0 +1,175 @@
+<?php
+
+/**
+ * @file
+ * Defines the Product set entity and associated features.
+ */
+
+use Drupal\commerce\EntityHelper;
+use Drupal\commerce_product\Entity\ProductVariationType;
+use Drupal\commerce_product_set\Entity\ProductSetType;
+use Drupal\commerce_product_set\Entity\ProductSetTypeInterface;
+use Drupal\entity\BundleFieldDefinition;
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function commerce_product_set_entity_extra_field_info() {
+  $fields = [];
+  /** @var \Drupal\commerce_product_set\Entity\ProductSetType $product_set_type */
+  foreach (ProductSetType::loadMultiple() as $product_set_type) {
+    $fields['commerce_product_set'][$product_set_type->id()]['display']['add_to_cart_form'] = [
+      'label' => t('Add to cart form'),
+      'description' => t('Displays an add to cart form.'),
+      'weight' => 3,
+    ];
+  }
+  return $fields;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function commerce_product_set_theme() {
+  return [
+    'commerce_product_set_form' => [
+      'render element' => 'form',
+    ],
+    'commerce_product_set' => [
+      'render element' => 'elements',
+    ],
+    'commerce_product_set_items' => [
+      'variables' => ['items' => [], 'title' => ''],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_commerce_product_set().
+ */
+function commerce_product_set_theme_suggestions_commerce_product_set(array $variables) {
+  return _commerce_entity_theme_suggestions('commerce_product_set', $variables);
+}
+
+/**
+ * Prepares variables for product set templates.
+ *
+ * Default template: commerce-product-set.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing rendered fields.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_commerce_product_set(array &$variables) {
+  /** @var Drupal\commerce_product_set\Entity\ProductSetInterface $product_set */
+  $product_set = $variables['elements']['#commerce_product_set'];
+
+  $variables['product_set_entity'] = $product_set;
+  $variables['product_set_url'] = $product_set->toUrl();
+  $variables['product_set'] = [];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['product_set'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Adds the default stores field to a product set type.
+ *
+ * A product set can belong to multiple stores.
+ *
+ * Store ID can't be a base field because the Views integration is broken.
+ * Instead, it is created as a configurable field for each product set type.
+ *
+ * @param \Drupal\commerce_product_set\Entity\ProductSetTypeInterface $product_set_type
+ *   The product set type.
+ */
+function commerce_product_set_add_stores_field(ProductSetTypeInterface $product_set_type) {
+  $field_definition = BundleFieldDefinition::create('entity_reference')
+    ->setTargetEntityTypeId('commerce_product_set')
+    ->setTargetBundle($product_set_type->id())
+    ->setName('stores')
+    ->setLabel('Stores')
+    ->setCardinality(BundleFieldDefinition::CARDINALITY_UNLIMITED)
+    ->setRequired(TRUE)
+    ->setSetting('target_type', 'commerce_store')
+    ->setSetting('handler', 'default')
+    ->setDisplayOptions('form', [
+      'type' => 'commerce_entity_select',
+      'weight' => -10,
+    ]);
+
+  $configurable_field_manager = \Drupal::service('commerce.configurable_field_manager');
+  $configurable_field_manager->createField($field_definition);
+}
+
+/**
+ * Adds the default body field to a product set type.
+ *
+ * @param \Drupal\commerce_product_set\Entity\ProductSetTypeInterface $product_set_type
+ *   The product set type.
+ * @param string $label
+ *   (optional) The label for the body instance. Defaults to 'Body'.
+ */
+function commerce_product_set_add_body_field(ProductSetTypeInterface $product_set_type, $label = 'Body') {
+  $field_definition = BundleFieldDefinition::create('text_with_summary')
+    ->setTargetEntityTypeId('commerce_product_set')
+    ->setTargetBundle($product_set_type->id())
+    ->setName('body')
+    ->setLabel($label)
+    ->setSetting('display_summary', FALSE)
+    ->setDisplayOptions('form', [
+      'type' => 'text_textarea_with_summary',
+      'weight' => 1,
+    ])
+    ->setDisplayOptions('view', [
+      'label' => 'hidden',
+      'type' => 'text_default',
+    ]);
+
+  $configurable_field_manager = \Drupal::service('commerce.configurable_field_manager');
+  $configurable_field_manager->createField($field_definition, FALSE);
+}
+
+/**
+ * Adds the default variations field to a product set type.
+ *
+ * Variations can't be a base field because the Views integration is broken.
+ * Instead, it is created as a configurable field for each product set type.
+ *
+ * @param \Drupal\commerce_product_set\Entity\ProductSetTypeInterface $product_set_type
+ *   The product set type.
+ */
+function commerce_product_set_add_variations_field(ProductSetTypeInterface $product_set_type) {
+  $variation_types = ProductVariationType::loadMultiple();
+  $variation_type_ids = EntityHelper::extractIds($variation_types);
+
+  $field_definition = BundleFieldDefinition::create('entity_reference_quantity')
+    ->setTargetEntityTypeId('commerce_product_set')
+    ->setTargetBundle($product_set_type->id())
+    ->setName('variations')
+    ->setLabel('Variations')
+    ->setCardinality(BundleFieldDefinition::CARDINALITY_UNLIMITED)
+    ->setRequired(TRUE)
+    ->setSetting('target_type', 'commerce_product_variation')
+    ->setSetting('handler', 'default')
+    ->setSetting('handler_settings', [
+      'target_bundles' => $variation_type_ids,
+    ])
+    ->setSetting('qty_min', 1)
+    ->setSetting('qty_max', 999)
+    ->setSetting('qty_label', t('Quantity'))
+    ->setDisplayOptions('form', [
+      'type' => 'entity_reference_quantity_autocomplete',
+      'weight' => 10,
+      'settings' => [
+        'match_operator' => 'CONTAINS',
+        'size' => 60,
+        'placeholder' => t('Search by variation title'),
+      ],
+    ]);
+
+  $configurable_field_manager = \Drupal::service('commerce.configurable_field_manager');
+  $configurable_field_manager->createField($field_definition);
+}

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+label: Set
+id: set
+purchasableEntityType: commerce_product_set
+orderType: default
+traits:
+  - order_item_product_set_items
+locked: false

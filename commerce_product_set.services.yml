@@ -1,0 +1,12 @@
+services:
+  commerce_product_set.lazy_builders:
+    class: Drupal\commerce_product_set\ProductSetLazyBuilders
+    arguments:
+      - '@entity_type.manager'
+      - '@form_builder'
+      - '@entity.repository'
+
+  commerce_product_set.product_set_items_order_processor:
+    class: Drupal\commerce_product_set\ProductSetItemsOrderProcessor
+    tags:
+      - { name: commerce_order.order_processor, priority: 100 }

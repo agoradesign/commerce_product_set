@@ -1,0 +1,11 @@
+entity.commerce_product_set.add_page:
+  route_name: entity.commerce_product_set.add_page
+  title: 'Add product set'
+  appears_on:
+    - entity.commerce_product_set.collection
+
+entity.commerce_product_set_type.add_form:
+  route_name: entity.commerce_product_set_type.add_form
+  title: 'Add product set type'
+  appears_on:
+    - entity.commerce_product_set_type.collection

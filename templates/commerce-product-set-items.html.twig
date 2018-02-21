@@ -1,0 +1,10 @@
+{% if items %}
+<div{{ attributes.addClass('product-set-items') }}>
+  {% if title %}
+    <div class="product-set-items__title">{{ title }}</div>
+  {% endif %}
+  {% for item in items %}
+    <div class="product-set-items__item">{{ item.getQuantity }} x {{ item.getTitle }}{% if item.getSku %} ({{ item.getSku }}){% endif %}{% if item.getUnitPrice %} à {{ item.getUnitPrice|commerce_price_format }}{% endif %}</div>
+  {% endfor %}
+</div>
+{% endif %}

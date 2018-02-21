@@ -1,0 +1,21 @@
+commerce_product.commerce_product_set_type.*:
+  type: commerce_config_entity_bundle
+  label: 'Product set type'
+  mapping:
+    orderItemType:
+      type: string
+      label: 'Order item type'
+
+field.formatter.settings.product_set_variations:
+  type: mapping
+  label: 'Product set variations formatter settings'
+  mapping:
+    title:
+      type: string
+      label: 'An optional title'
+    adjustment_types:
+      type: sequence
+      label: 'Adjustment types'
+      sequence:
+        type: string
+        label: 'Adjustment type'

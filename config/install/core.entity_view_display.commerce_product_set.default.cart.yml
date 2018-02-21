@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product_set.commerce_product_set_type.default
+    - core.entity_view_mode.commerce_product_set.cart
+    - field.field.commerce_product_set.default.body
+    - field.field.commerce_product_set.default.stores
+    - field.field.commerce_product_set.default.variations
+  module:
+    - commerce_product_set
+id: commerce_product_set.default.cart
+targetEntityType: commerce_product_set
+bundle: default
+mode: cart
+content:
+  title:
+    label: hidden
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+  variations:
+    type: product_set_variations
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      title: 'Set consisting of:'
+      adjustment_types:
+        fee: '0'
+        promotion: '0'
+        tax: '0'
+        shipping: '0'
+    third_party_settings: {  }
+hidden:
+  add_to_cart_form: true
+  body: true
+  created: true
+  langcode: true
+  price: true
+  sku: true
+  stores: true
+  uid: true

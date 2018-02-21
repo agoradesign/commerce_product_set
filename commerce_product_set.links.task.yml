@@ -1,0 +1,14 @@
+entity.commerce_product_set.canonical:
+  route_name: entity.commerce_product_set.canonical
+  base_route: entity.commerce_product_set.canonical
+  title: 'View'
+
+entity.commerce_product_set.page_edit:
+  route_name: entity.commerce_product_set.edit_form
+  base_route: entity.commerce_product_set.canonical
+  title: Edit
+
+entity.commerce_product_set_type.edit_form:
+  route_name: entity.commerce_product_set_type.edit_form
+  base_route: entity.commerce_product_set_type.edit_form
+  title: Edit

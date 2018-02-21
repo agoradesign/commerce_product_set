@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_order
+    - commerce_product_set
+id: commerce_order_item.product_set_items
+field_name: product_set_items
+entity_type: commerce_order_item
+type: commerce_product_set_item
+settings: {  }
+module: commerce_product_set
+locked: true
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - commerce_product_set
+    - entity_reference_quantity
+id: commerce_product_set.variations
+field_name: variations
+entity_type: commerce_product_set
+type: entity_reference_quantity
+settings:
+  target_type: commerce_product_variation
+module: entity_reference_quantity
+locked: true
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

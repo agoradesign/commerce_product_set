@@ -1,0 +1,11 @@
+entity.commerce_product_set.collection:
+  title: 'Product sets'
+  route_name: 'entity.commerce_product_set.collection'
+  parent: 'commerce.admin_commerce'
+  description: 'Manage your product sets.'
+
+entity.commerce_product_set_type.collection:
+  title: 'Product set types'
+  route_name: 'entity.commerce_product_set_type.collection'
+  parent: 'commerce_product.configuration'
+  description: 'Manage fields, form and display settings for your product sets.'

@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ *
+ * Default product set template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - product_set: The rendered product set fields.
+ *   Use 'product_set' to print them all, or print a subset such as
+ *   'product_set.title'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ product_set|without('title') }}
+ *   @endcode
+ * - product_set_entity: The product set entity.
+ * - product_set_url: The product set URL.
+ *
+ * @ingroup themeable
+ */
+#}
+<article{{ attributes }}>
+  {{- product_set -}}
+</article>
