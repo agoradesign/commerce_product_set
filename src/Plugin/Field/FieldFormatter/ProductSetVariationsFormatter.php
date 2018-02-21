@@ -180,6 +180,8 @@ class ProductSetVariationsFormatter extends FormatterBase implements ContainerFa
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     if (!$items->isEmpty()) {
+      /** @var \Drupal\commerce_price\Price|null $total_price */
+      $total_price = NULL;
       $set_items = [];
       foreach ($items as $delta => $item) {
         /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
@@ -190,6 +192,12 @@ class ProductSetVariationsFormatter extends FormatterBase implements ContainerFa
         $adjustment_types = array_filter($this->getSetting('adjustment_types'));
         $result = $this->priceCalculator->calculate($variation, $qty, $context, $adjustment_types);
         $calculated_price = $result->getCalculatedPrice();
+        if ($total_price) {
+          $total_price = $total_price->add($calculated_price->multiply($qty));
+        }
+        else {
+          $total_price = $calculated_price->multiply($qty);
+        }
         $product_set_item->setUnitPrice($calculated_price);
         $set_items[$delta] = $product_set_item;
       }
@@ -197,6 +205,7 @@ class ProductSetVariationsFormatter extends FormatterBase implements ContainerFa
         '#theme' => 'commerce_product_set_items',
         '#items' => $set_items,
         '#title' => $this->getSetting('title'),
+        '#total_price' => $total_price,
       ];
     }
     return $elements;

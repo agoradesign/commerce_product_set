@@ -40,7 +40,7 @@ function commerce_product_set_theme() {
       'render element' => 'elements',
     ],
     'commerce_product_set_items' => [
-      'variables' => ['items' => [], 'title' => ''],
+      'variables' => ['items' => [], 'title' => '', 'total_price' => NULL],
     ],
   ];
 }
