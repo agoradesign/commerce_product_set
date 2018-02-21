@@ -40,7 +40,14 @@ function commerce_product_set_theme() {
       'render element' => 'elements',
     ],
     'commerce_product_set_items' => [
-      'variables' => ['items' => [], 'title' => '', 'total_price' => NULL],
+      'variables' => [
+        'items' => [],
+        'title' => '',
+        'total_price' => NULL,
+        'entity_type' => '',
+        'bundle' => '',
+        'view_mode' => '',
+      ],
     ],
   ];
 }
@@ -50,6 +57,23 @@ function commerce_product_set_theme() {
  */
 function commerce_product_set_theme_suggestions_commerce_product_set(array $variables) {
   return _commerce_entity_theme_suggestions('commerce_product_set', $variables);
+}
+
+/**
+ * Implements hook_theme_suggestions_commerce_product_set_items().
+ */
+function commerce_product_set_theme_suggestions_commerce_product_set_items(array $variables) {
+  $original = $variables['theme_hook_original'];
+  $sanitized_view_mode = strtr($variables['view_mode'], '.', '_');
+
+  $suggestions = [];
+  $suggestions[] = $original . '__' . $sanitized_view_mode;
+  $suggestions[] = $original . '__' . $variables['entity_type'];
+  $suggestions[] = $original . '__' . $variables['entity_type'] . '__' . $sanitized_view_mode;
+  $suggestions[] = $original . '__' . $variables['entity_type'] . '__' . $variables['bundle'];
+  $suggestions[] = $original . '__' . $variables['entity_type'] . '__' . $variables['bundle'] . '__' . $sanitized_view_mode;
+
+  return $suggestions;
 }
 
 /**

@@ -45,6 +45,9 @@ class ProductSetItemDefaultFormatter extends FormatterBase {
         '#theme' => 'commerce_product_set_items',
         '#items' => $set_items,
         '#total_price' => $total_price,
+        '#entity_type' => $items->getFieldDefinition()->getTargetEntityTypeId(),
+        '#bundle' => $items->getFieldDefinition()->getTargetBundle(),
+        '#view_mode' => $this->viewMode,
       ];
     }
     return $elements;

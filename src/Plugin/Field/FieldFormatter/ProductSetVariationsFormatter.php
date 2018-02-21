@@ -206,6 +206,9 @@ class ProductSetVariationsFormatter extends FormatterBase implements ContainerFa
         '#items' => $set_items,
         '#title' => $this->getSetting('title'),
         '#total_price' => $total_price,
+        '#entity_type' => $items->getFieldDefinition()->getTargetEntityTypeId(),
+        '#bundle' => $items->getFieldDefinition()->getTargetBundle(),
+        '#view_mode' => $this->viewMode,
       ];
     }
     return $elements;
