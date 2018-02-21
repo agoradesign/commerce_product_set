@@ -1,9 +1,9 @@
 {
-  "name": "drupal/commerce_product_set",
+  "name": "agoradesign/commerce_product_set",
   "type": "drupal-module",
   "description": "Extends Drupal Commerce with a product set (bundle) functionality.",
   "license": "GPL-2.0-or-later",
-  "homepage": "https://www.drupal.org/project/commerce_product_set",
+  "homepage": "https://github.com/agoradesign/commerce_product_set",
   "require": {
     "drupal/commerce": "~2.4",
     "drupal/entity_reference_quantity": "1.x-dev"

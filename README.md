@@ -38,3 +38,9 @@ module).
 
 In the meantime, the module will be hosted on Github exclusively:
 [Githup repo](https://github.com/agoradesign/commerce_product_set)
+
+### Update
+
+After having a chat with bojanz on Slack, we decided to not publish it on d.o,
+as the module is too close to CPB. The project will stay on Github though and
+is available via Packagist under agoradesign/commerce_product_set.
