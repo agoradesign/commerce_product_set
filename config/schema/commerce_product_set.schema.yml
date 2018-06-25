@@ -1,4 +1,4 @@
-commerce_product.commerce_product_set_type.*:
+commerce_product_set.commerce_product_set_type.*:
   type: commerce_config_entity_bundle
   label: 'Product set type'
   mapping:
