@@ -108,6 +108,7 @@ class ProductSetPartsBlock extends BlockBase implements ContainerFactoryPluginIn
    */
   public function defaultConfiguration() {
     return [
+      'hide_single_piece' => TRUE,
       'view_mode' => 'default',
     ];
   }
@@ -116,6 +117,12 @@ class ProductSetPartsBlock extends BlockBase implements ContainerFactoryPluginIn
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
+    $form['hide_single_piece'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide block for single piece sets.'),
+      '#default_value' => $this->configuration['hide_single_piece'],
+    ];
+
     $form['view_mode'] = [
       '#type' => 'select',
       '#title' => $this->t('View mode'),
@@ -140,6 +147,10 @@ class ProductSetPartsBlock extends BlockBase implements ContainerFactoryPluginIn
     /** @var \Drupal\commerce_product_set\Entity\ProductSetInterface $product_set */
     $product_set = $this->getCurrentProductSet();
     if (empty($product_set)) {
+      return [];
+    }
+
+    if ($this->configuration['hide_single_piece'] && count($product_set->getProductSetItems()) < 2) {
       return [];
     }
 
