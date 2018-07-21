@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product_set
+id: commerce_product_set.summary
+label: Summary
+targetEntityType: commerce_product_set
+cache: true

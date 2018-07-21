@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product_set.commerce_product_set_type.default
+    - core.entity_view_mode.commerce_product_set.summary
+    - field.field.commerce_product_set.default.body
+    - field.field.commerce_product_set.default.field_images
+    - field.field.commerce_product_set.default.field_lead_text
+    - field.field.commerce_product_set.default.field_metatags
+    - field.field.commerce_product_set.default.field_preview_image
+    - field.field.commerce_product_set.default.stores
+    - field.field.commerce_product_set.default.variations
+id: commerce_product_set.default.summary
+targetEntityType: commerce_product_set
+bundle: default
+mode: summary
+content:
+  sku:
+    type: string
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  title:
+    type: string
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  add_to_cart_form: true
+  body: true
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_images: true
+  field_lead_text: true
+  field_metatags: true
+  field_preview_image: true
+  langcode: true
+  price: true
+  stores: true
+  uid: true
+  variations: true
