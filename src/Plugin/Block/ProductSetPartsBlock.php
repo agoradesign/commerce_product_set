@@ -181,7 +181,7 @@ class ProductSetPartsBlock extends BlockBase implements ContainerFactoryPluginIn
       // Always add the 'default' view mode.
       'default' => 'Default',
     ];
-    $form_modes = $this->entityDisplayRepository->getViewModes('commerce_product_set');
+    $form_modes = $this->entityDisplayRepository->getViewModes('commerce_product_variation');
     foreach ($form_modes as $id => $info) {
       $options[$id] = $info['label'];
     }
