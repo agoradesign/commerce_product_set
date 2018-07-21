@@ -49,6 +49,11 @@ function commerce_product_set_theme() {
         'view_mode' => '',
       ],
     ],
+    'commerce_product_set_parts' => [
+      'variables' => [
+        'items' => [],
+      ],
+    ],
   ];
 }
 

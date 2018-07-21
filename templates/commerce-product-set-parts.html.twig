@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ *
+ * Default template for product set parts.
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass(['product-set-parts']) }}>
+  {% for item in items %}
+    {{ item }}
+  {% endfor %}
+</div>
