@@ -5,7 +5,7 @@ namespace Drupal\commerce_product_set\Form;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\ContentEntityForm;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
@@ -27,19 +27,19 @@ class ProductSetForm extends ContentEntityForm {
   protected $dateFormatter;
 
   /**
-   * Constructs a new ProductForm object.
+   * Constructs a new ProductSetForm object.
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager.
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   *   The entity repository service.
    * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entity_type_bundle_info
-   *   The entity type bundle info.
+   *   The entity type bundle service.
    * @param \Drupal\Component\Datetime\TimeInterface $time
-   *   The time.
+   *   The time service.
    * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
    *   The date formatter.
    */
-  public function __construct(EntityManagerInterface $entity_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info, TimeInterface $time, DateFormatterInterface $date_formatter) {
-    parent::__construct($entity_manager, $entity_type_bundle_info, $time);
+  public function __construct(EntityRepositoryInterface $entity_repository, EntityTypeBundleInfoInterface $entity_type_bundle_info, TimeInterface $time, DateFormatterInterface $date_formatter) {
+    parent::__construct($entity_repository, $entity_type_bundle_info, $time);
 
     $this->dateFormatter = $date_formatter;
   }
@@ -49,7 +49,7 @@ class ProductSetForm extends ContentEntityForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.manager'),
+      $container->get('entity.repository'),
       $container->get('entity_type.bundle.info'),
       $container->get('datetime.time'),
       $container->get('date.formatter')
@@ -219,7 +219,7 @@ class ProductSetForm extends ContentEntityForm {
     /** @var \Drupal\commerce_product_set\Entity\ProductSetInterface $product_set */
     $product_set = $this->getEntity();
     $product_set->save();
-    drupal_set_message($this->t('The product set %label has been successfully saved.', ['%label' => $product_set->label()]));
+    $this->messenger()->addStatus($this->t('The product set %label has been successfully saved.', ['%label' => $product_set->label()]));
     $form_state->setRedirect('entity.commerce_product_set.canonical', ['commerce_product_set' => $product_set->id()]);
   }
 

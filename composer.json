@@ -1,12 +1,19 @@
 {
-  "name": "agoradesign/commerce_product_set",
-  "type": "drupal-module",
-  "description": "Extends Drupal Commerce with a product set (bundle) functionality.",
-  "license": "GPL-2.0-or-later",
-  "homepage": "https://github.com/agoradesign/commerce_product_set",
-  "require": {
-    "drupal/commerce": "~2.4",
-    "drupal/entity_reference_quantity": "1.x-dev"
-  },
-  "minimum-stability": "dev"
+    "name": "agoradesign/commerce_product_set",
+    "type": "drupal-module",
+    "description": "Extends Drupal Commerce with a product set (bundle) functionality.",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/agoradesign/commerce_product_set",
+    "authors": [
+        {
+            "name": "Mag. Andreas Mayr (agoradesign)",
+            "homepage": "https://www.drupal.org/u/agoradesign",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "drupal/commerce": "~2.19",
+        "drupal/entity_reference_quantity": "1.x-dev"
+    },
+    "minimum-stability": "dev"
 }

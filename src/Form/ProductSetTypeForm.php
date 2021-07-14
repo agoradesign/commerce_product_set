@@ -93,7 +93,7 @@ class ProductSetTypeForm extends CommerceBundleEntityFormBase {
 
     $this->submitTraitForm($form, $form_state);
 
-    drupal_set_message($this->t('The product set type %label has been successfully saved.', ['%label' => $this->entity->label()]));
+    $this->messenger()->addStatus($this->t('The product set type %label has been successfully saved.', ['%label' => $this->entity->label()]));
     $form_state->setRedirect('entity.commerce_product_set_type.collection');
     if ($status == SAVED_NEW) {
       commerce_product_set_add_stores_field($this->entity);
