@@ -6,11 +6,12 @@ use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Security\TrustedCallbackInterface;
 
 /**
  * Provides #lazy_builder callbacks.
  */
-class ProductSetLazyBuilders {
+class ProductSetLazyBuilders implements TrustedCallbackInterface {
 
   /**
    * The entity type manager.
@@ -87,6 +88,13 @@ class ProductSetLazyBuilders {
     ]);
 
     return $this->formBuilder->buildForm($form_object, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function trustedCallbacks() {
+    return ['addToCartForm'];
   }
 
 }
