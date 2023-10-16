@@ -1,7 +1,7 @@
 name: 'Commerce Product Set'
 type: module
 description: 'Extends Drupal Commerce with a product set (bundle) functionality.'
-core_version_requirement: ^8.8.3 || ^9
+core_version_requirement: ^9 || ^10
 package: 'Commerce (contrib)'
 
 dependencies:
