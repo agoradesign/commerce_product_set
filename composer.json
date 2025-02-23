@@ -12,8 +12,8 @@
         }
     ],
     "require": {
-        "drupal/commerce": "~2.29",
-        "drupal/entity_reference_quantity": "2.x-dev"
+        "drupal/commerce": "~2.29 || ~3.0",
+        "drupal/entity_reference_quantity": "~3.0"
     },
     "minimum-stability": "dev"
 }
