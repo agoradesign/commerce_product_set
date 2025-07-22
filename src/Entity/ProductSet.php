@@ -28,7 +28,7 @@ use Drupal\user\UserInterface;
  *   handlers = {
  *     "storage" = "Drupal\commerce\CommerceContentEntityStorage",
  *     "access" = "Drupal\entity\EntityAccessControlHandler",
- *     "permission_provider" = "Drupal\commerce\EntityPermissionProvider",
+ *     "permission_provider" = "Drupal\entity\EntityPermissionProvider",
  *     "list_builder" = "Drupal\commerce_product_set\ProductSetListBuilder",
  *     "view_builder" = "Drupal\commerce_product_set\ProductSetViewBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
