@@ -16,35 +16,35 @@ final class ProductSetItem {
    *
    * @var int
    */
-  protected $variationId;
+  protected int $variationId;
 
   /**
    * The SKU.
    *
    * @var string
    */
-  protected $sku;
+  protected string $sku;
 
   /**
    * The title.
    *
    * @var string
    */
-  protected $title;
+  protected string $title;
 
   /**
    * The quantity (as bcmath compatible numeric string).
    *
    * @var string
    */
-  protected $quantity;
+  protected string $quantity;
 
   /**
    * The unit price.
    *
    * @var \Drupal\commerce_price\Price
    */
-  protected $unitPrice;
+  protected ?Price $unitPrice;
 
   /**
    * Constructs a new ProductSetItem object.
@@ -60,7 +60,7 @@ final class ProductSetItem {
    * @param \Drupal\commerce_price\Price|null $unitPrice
    *   The unit price.
    */
-  public function __construct($variationId, $quantity, $sku = '', $title = '', Price $unitPrice = NULL) {
+  public function __construct(int $variationId, string $quantity, string $sku = '', string $title = '', ?Price $unitPrice = NULL) {
     $this->variationId = $variationId;
     $this->sku = $sku;
     $this->title = $title;
@@ -103,7 +103,7 @@ final class ProductSetItem {
    * @return static
    *   A new ProductSetItem object.
    */
-  public static function fromProductVariation(ProductVariationInterface $variation, $quantity = 1) {
+  public static function fromProductVariation(ProductVariationInterface $variation, int $quantity = 1) {
     return new static($variation->id(), $quantity, $variation->getSku(), $variation->getTitle(), $variation->getPrice());
   }
 
@@ -113,7 +113,7 @@ final class ProductSetItem {
    * @return int
    *   The variation ID.
    */
-  public function getVariationId() {
+  public function getVariationId(): int {
     return $this->variationId;
   }
 
@@ -123,7 +123,7 @@ final class ProductSetItem {
    * @return string
    *   The SKU.
    */
-  public function getSku() {
+  public function getSku(): string {
     return $this->sku;
   }
 
@@ -133,7 +133,7 @@ final class ProductSetItem {
    * @return string
    *   The title.
    */
-  public function getTitle() {
+  public function getTitle(): string {
     return $this->title;
   }
 
@@ -143,7 +143,7 @@ final class ProductSetItem {
    * @return string
    *   The quantity.
    */
-  public function getQuantity() {
+  public function getQuantity(): string {
     return $this->quantity;
   }
 
@@ -153,7 +153,7 @@ final class ProductSetItem {
    * @return \Drupal\commerce_price\Price|null
    *   The unit price.
    */
-  public function getUnitPrice() {
+  public function getUnitPrice(): ?Price {
     return $this->unitPrice;
   }
 
@@ -177,7 +177,7 @@ final class ProductSetItem {
    * @return array
    *   The array representation of the set item.
    */
-  public function toArray() {
+  public function toArray(): array {
     return [
       'variation_id' => $this->variationId,
       'sku' => $this->sku,
@@ -197,7 +197,7 @@ final class ProductSetItem {
    * @return array
    *   The array representation of the set item.
    */
-  public function toFlatArray() {
+  public function toFlatArray(): array {
     $values = $this->toArray();
     $values['unit_price__number'] = !empty($values['unit_price']) ? $values['unit_price']['number'] : '';
     $values['unit_price__currency_code'] = !empty($values['unit_price']) ? $values['unit_price']['currency_code'] : '';
