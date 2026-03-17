@@ -15,7 +15,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "commerce_product_set_item",
  *   label = @Translation("Product set item"),
  *   description = @Translation("Represents a single item from a given product set."),
- *   category = @Translation("Commerce"),
+ *   category = "Commerce",
  *   default_widget = "commerce_product_set_item_default",
  *   default_formatter = "commerce_product_set_item_default",
  * )
